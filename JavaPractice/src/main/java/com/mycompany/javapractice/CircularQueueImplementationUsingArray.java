@@ -9,18 +9,52 @@ import java.util.*;
  * @author ADMIN
  */
 public class CircularQueueImplementationUsingArray {
+    Scanner sc=new Scanner(System.in);
     int f=-1;
     int r=-1;
     int n;
     int[] arr;
     public void enqueue()
     {
-        
+        if((r+1)%n==f)
+        {
+            System.out.println("Queue Overflow");
+            return;
+        }
+        int x;
+        System.out.println("Enter Element to Enqueue :- ");
+        x=sc.nextInt();
+        if(f==-1 && r==-1)
+        {
+            f=0;
+            r=0;
+            arr[r]=x;
+        }
+        else
+        {
+            r=(r+1)%n;
+            arr[r]=x;
+        }
     }
     
     public void dequeue()
     {
-        
+        if(f==-1)
+        {
+            System.out.println("Queue Underflow");
+            return;
+        }
+        if(f==r)
+        {
+            System.out.println(arr[f]+ "Dequeued");
+            f=-1;
+            r=-1;
+        }
+        else
+        {
+            System.out.println(arr[f]+" Dequeued");
+            f=(f+1)%n;
+        }
     }
     
     public void display()
@@ -30,19 +64,29 @@ public class CircularQueueImplementationUsingArray {
             System.out.println("Queue Underflow");
             return;
         }
-        for(int i=f;i<=r;i++)
+        int i=f;
+        while(true)
         {
-            System.out.println(arr[i]+" ");
+            System.out.print(arr[i]+" ");
+            if(i==r)
+                break;
+           
+            i=(i+1)%n;
         }
     }
     
     public static void main(String args[])
     {
         CircularQueueImplementationUsingArray q = new CircularQueueImplementationUsingArray();
-        Scanner sc=new Scanner(System.in);
+
         
         System.out.println("Enter the size of the array :- ");
-        q.n=sc.nextInt();
+        q.n=q.sc.nextInt();
+        if (q.n <= 0) {
+            System.out.println("Array size must be greater than 0");
+            return;
+        }
+
         q.arr=new int[q.n];
         
         while(true)
@@ -53,7 +97,7 @@ public class CircularQueueImplementationUsingArray {
             System.out.println("3. Display");
             System.out.println("4. Exit");
             
-            int ch=sc.nextInt();
+            int ch=q.sc.nextInt();
             switch(ch)
             {
                 case 1:
