@@ -1,2 +1,3 @@
 target/
-*.classprivate-key.asc
+*.class
+private-key.asc
